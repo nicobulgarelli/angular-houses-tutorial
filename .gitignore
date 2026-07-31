@@ -1,0 +1,11 @@
+# Librerie scaricate da npm
+node_modules/
+
+# Cache di Angular
+.angular/
+
+# Impostazioni di WebStorm
+.idea/
+
+# Output della build
+dist/
