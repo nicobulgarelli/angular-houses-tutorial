@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, inject} from '@angular/core';
 import {HousingLocation} from '../housing-location/housing-location';
 import {HousingLocationInfo} from '../housinglocation';
-import {Housing} from '../housing';git status
+import {Housing} from '../housing';
 
 @Component({
   selector: 'app-home',
