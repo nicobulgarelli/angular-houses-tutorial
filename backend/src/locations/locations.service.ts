@@ -122,8 +122,13 @@ export class LocationsService {
     return 'This action adds a new location';
   }
 
-  findAll() {
-    return this.locationsList ?? [];
+  findAll(city: string | undefined) {
+    if (city == undefined) {
+      return this.locationsList;
+    }
+    return this.locationsList.filter((casa) =>
+      casa?.city.toLowerCase().includes(city.toLowerCase()),
+    );
   }
 
   findOne(id: number) {

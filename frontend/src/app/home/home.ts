@@ -14,7 +14,7 @@ import {Housing} from '../housing';
       </form>
     </section>
     <section class="results">
-    @for (housingLocation of filteredLocationList; track $index) { 
+    @for (housingLocation of housingLocationList; track $index) { 
       <app-housing-location [housingLocation]="housingLocation" />   
     }
     </section>
@@ -25,25 +25,22 @@ export class Home {
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   housingLocationList: HousingLocationInfo[] = [];
   housingService: Housing = inject(Housing);
-  filteredLocationList: HousingLocationInfo[] = [];
 
   constructor() {
     this.housingService
-        .getAllHousingLocations()
+        .getAllHousingLocations(undefined)
         .then((housingLocationList: HousingLocationInfo[]) => {
           this.housingLocationList = housingLocationList;
-          this.filteredLocationList = housingLocationList;
           this.changeDetectorRef.markForCheck();
         });
   }
 
   filterResults(text: string) {
-    if (!text) {
-      this.filteredLocationList = this.housingLocationList;
-      return;
-    }
-    this.filteredLocationList = this.housingLocationList.filter((housingLocation) =>
-        housingLocation?.city.toLowerCase().includes(text.toLowerCase()),
-    );
+    this.housingService
+        .getAllHousingLocations(text)
+        .then((housingLocationList: HousingLocationInfo[]) => {
+          this.housingLocationList = housingLocationList;
+          this.changeDetectorRef.markForCheck();
+        });
   }
 }
