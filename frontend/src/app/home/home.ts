@@ -8,8 +8,8 @@ import {Housing} from '../housing';
   imports: [HousingLocation],
   template: `       
     <section>
-      <form>
-        <input type="text" placeholder="Filter by city" #filter />     
+      <form (submit)="$event.preventDefault()"> 
+        <input type="text" placeholder="Filter by city" (keyup.enter)="filterResults(filter.value)" #filter />     
         <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>   
       </form>
     </section>
