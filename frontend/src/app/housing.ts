@@ -8,7 +8,11 @@ export class Housing {
     url = 'http://localhost:3000/locations';
 
     async getAllHousingLocations(city: string | undefined): Promise<HousingLocationInfo[]> {
-        const data = await fetch(`${this.url}?city=${city}`);
+        let callUrl = `${this.url}`
+        if(city){
+            callUrl = `${this.url}?city=${city}`;
+        }
+        const data = await fetch(callUrl);
         return (await data.json()) ?? [];
     }
 

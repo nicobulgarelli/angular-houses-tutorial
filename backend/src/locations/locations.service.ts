@@ -123,7 +123,7 @@ export class LocationsService {
   }
 
   findAll(city: string | undefined) {
-    if (city == undefined) {
+    if (!city) {
       return this.locationsList;
     }
     return this.locationsList.filter((casa) =>
