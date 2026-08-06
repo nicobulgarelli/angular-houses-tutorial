@@ -21,3 +21,4 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 export class App {
   title = 'default';
 }
+

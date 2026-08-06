@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
-  Query,
+  Query, UseGuards,
 } from '@nestjs/common';
 import { LocationsService } from './locations.service';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('locations')
 export class LocationsController {
@@ -26,13 +27,17 @@ export class LocationsController {
     return this.locationsService.findAll(city);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.locationsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateLocationDto: UpdateLocationDto,
+  ) {
     return this.locationsService.update(+id, updateLocationDto);
   }
 

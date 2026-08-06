@@ -1,0 +1,25 @@
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{"username": "gino", "password": "secret1"}
+
+###
+
+GET http://localhost:3000/auth/profile
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{"username": "gino", "password": "secret1"}
+
+###
+
+GET http://localhost:3000/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJpYXQiOjE3ODU5NDI5MjgsImV4cCI6MTc4NTk0Mjk4OH0.PYBcCJiiSNwmxsmRu4Ck2eqiwHg13HWKHTK3E3jYNoI
+
+###
+
+GET http://localhost:3000/locations/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjAsInVzZXJuYW1lIjoiZ2lhY29tbyIsImlhdCI6MTc4NjAyMDkxNiwiZXhwIjoxNzg2MDIwOTc2fQ.Yme-4gXgYC5uRLcgyol7blSIgtMftsVPgeqylyxR-b8
