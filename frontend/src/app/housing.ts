@@ -17,7 +17,14 @@ export class Housing {
     }
 
     async getHousingLocationById(id: number): Promise<HousingLocationInfo | undefined> {
-        const data = await fetch(`c`);
+        const token = localStorage.getItem("userToken");
+        const data = await fetch(`${this.url}/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+
         const locationJson = await data.json();
         return locationJson ?? {};
     }
@@ -40,6 +47,48 @@ export class Housing {
 
             const risultato = await data.json();
             console.log('Risposta dal server:', risultato);
+        } catch (errore) {
+            console.error('Errore durante l\'invio:', errore);
+        }
+    }
+
+    async registerUser(username: string, password: string) {
+        const UserObject = {
+            username: username,
+            password: password,
+        };
+        try {
+            const data = await fetch('http://localhost:3000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(UserObject),
+            });
+
+            const risultato = await data.json();
+            console.log('Risposta dal server:', risultato);
+        } catch (errore) {
+            console.error('Errore durante l\'invio:', errore);
+        }
+    }
+
+    async loginUser(username: string, password: string) {
+        const UserObject = {
+            username: username,
+            password: password,
+        };
+        try {
+            const data = await fetch('http://localhost:3000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(UserObject),
+            });
+
+            const risultato = await data.json();
+            localStorage.setItem("userToken", risultato.access_token);
         } catch (errore) {
             console.error('Errore durante l\'invio:', errore);
         }

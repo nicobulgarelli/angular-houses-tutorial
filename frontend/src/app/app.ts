@@ -6,11 +6,12 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   imports: [RouterOutlet, RouterLink],
   template: `
     <main>
-      <a [routerLink]="['/']">
         <header class="brand-name">
-          <img class="brand-logo" src="/public/logo.svg" alt="logo" aria-hidden="true"/>
+          <a [routerLink]="['/']">
+            <img class="brand-logo" src="/public/logo.svg" alt="logo" aria-hidden="true"/>
+          </a>
+          <button [routerLink]="['/login']" class="primary">Login</button>
         </header>
-      </a>
       <section class="content">
         <router-outlet/>
       </section>
