@@ -1,7 +1,7 @@
-import { Service } from '@angular/core';
+import {Service} from '@angular/core';
 import {HousingLocationInfo} from "./housinglocation";
 
-@Service( )
+@Service()
 
 export class Housing {
 
@@ -9,7 +9,7 @@ export class Housing {
 
     async getAllHousingLocations(city: string | undefined): Promise<HousingLocationInfo[]> {
         let callUrl = `${this.url}`
-        if(city){
+        if (city) {
             callUrl = `${this.url}?city=${city}`;
         }
         const data = await fetch(callUrl);
@@ -23,7 +23,6 @@ export class Housing {
                 'Authorization': `Bearer ${token}`
             },
         });
-
 
         const locationJson = await data.json();
         return locationJson ?? {};
@@ -52,25 +51,27 @@ export class Housing {
         }
     }
 
-    async registerUser(username: string, password: string) {
+    async registerUser(username: string, password: string): Promise<boolean> {
         const UserObject = {
             username: username,
             password: password,
         };
-        try {
-            const data = await fetch('http://localhost:3000/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(UserObject),
-            });
+        const data = await fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(UserObject),
+        });
 
-            const risultato = await data.json();
-            console.log('Risposta dal server:', risultato);
-        } catch (errore) {
-            console.error('Errore durante l\'invio:', errore);
+        if (data.status === 409) {
+            console.log("data.status =", data.status);
+            return true;
         }
+
+        const risultato = await data.json();
+        console.log('Risposta dal server:', risultato);
+        return false;
     }
 
     async loginUser(username: string, password: string) {

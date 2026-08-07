@@ -18,14 +18,19 @@ import {Housing} from "../housing";
           <label for="password">Password: </label>
           <input id="password" type="password" formControlName="password" />
           <br />
+          @if (isDuplicate) {
+            <p>Questo username è già stato registrato.</p>
+          }
+          <br />
           <button type="submit" class="primary">Submit</button>
         </form>
       </section>
     </article>
   `,
-  styles: ``,
+  styles: `p {     color: red;   }`,
 })
 export class Register {
+  isDuplicate: boolean = false;
   housingService = inject(Housing);
 
   registrationForm = new FormGroup({
@@ -35,8 +40,8 @@ export class Register {
 
   constructor() { }
 
-  submitRegistrationRequest() {
-    this.housingService.registerUser(
+  async submitRegistrationRequest() {
+    this.isDuplicate = await this.housingService.registerUser(
         this.registrationForm.value.username ?? '',
         this.registrationForm.value.password ?? '',
     );
